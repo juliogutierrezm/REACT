@@ -1,4 +1,4 @@
-import React from "react";
+/* import React from "react";
 
 const Button = ({ onClick }) => {
   return (
@@ -8,3 +8,4 @@ const Button = ({ onClick }) => {
 };
 
 export default Button;
+ */

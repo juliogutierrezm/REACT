@@ -1,6 +1,5 @@
 import "./App.css";
 import PersonCard from "./components/PersonCard";
-import Button from "./components/Button";
 import React, { useState } from "react";
 
 function App() {
@@ -17,25 +16,20 @@ function App() {
 
   return (
     <div className="App">
-
-
-      <hr className="border border-primary"/>
-
-      {/* II) React Component passing Props */}
       <PersonCard
         firstName="Jane"
         lastName="Doe"
         hairColor="Black"
         age={person1Age}
-        onIncrementAge = {handleIncrementAgePerson1}
+        onIncrementAge={handleIncrementAgePerson1}
       />
-  
+
       <PersonCard
         firstName="John"
         lastName="Smith"
         hairColor="Brown"
         age={person2Age}
-        onIncrementAge = {handleIncrementAgePerson2}
+        onIncrementAge={handleIncrementAgePerson2}
       />
     </div>
   );
