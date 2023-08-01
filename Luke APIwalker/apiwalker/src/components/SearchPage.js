@@ -1,23 +1,37 @@
 import axios from "axios";
 import React, { useState } from "react";
 
-const SearchPage = (props) => {
+const SearchPage = () => {
   const [selectedPath, setSelectedPath] = useState("/people");
   const [id, setId] = useState("");
   const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
 
   const search = () => {
+    setError(null);
     if (selectedPath && id) {
       axios
-        .get(`https://swapi.dev/api/${selectedPath}/${id}`)
+        .get(`https://swapi.dev/api${selectedPath}/${id}/`)
         .then((response) => {
           setData(response.data);
-          console.log(response.data);
         })
         .catch((error) => {
-          console.log(error);
+          setError("Estos no son los droides que está buscando");
+          setData(null);
         });
     }
+  };
+
+  const DisplayAttributes = ({ attributes }) => {
+    return (
+      <div>
+        {Object.entries(attributes).map(([key, value]) => (
+          <p key={key}>
+            <strong>{key}:</strong> {value}
+          </p>
+        ))}
+      </div>
+    );
   };
 
   return (
@@ -56,18 +70,24 @@ const SearchPage = (props) => {
         </div>
       </div>
       <div>
+        {error ? (
+          <div>
+            <p>{error}</p>
+            <img
+              src="https://cdn.pixabay.com/photo/2018/03/08/17/12/star-wars-3207419_960_720.png"
+              alt="Obi-Wan Kenobi"
+              style={{ width: '300px', height: '300px' }}
+            />
+          </div>
+        ) : null}
         {data ? (
-          <pre>
+          <div>
             <h1>{data.name}</h1>
-            {Object.keys(data)
-              .slice(0, 4)
-              .map((key) => (
-                <p>
-                  {key}: {data[key]}
-                </p>
-              ))}
-            height: {data.height}
-          </pre>
+            <DisplayAttributes attributes={data} />
+            {selectedPath === "/people" && data.homeworld && (
+              <p>Homeworld: {data.homeworld}</p>
+            )}
+          </div>
         ) : null}
       </div>
     </div>
